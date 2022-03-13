@@ -7,6 +7,7 @@ declare(strict_types=1);
  * @link     https://www.hyperf.io
  * @document https://hyperf.wiki
  * @contact  group@hyperf.io
+ *
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 return [
@@ -14,6 +15,7 @@ return [
         'http' => [
             Hyperf\HttpServer\Exception\Handler\HttpExceptionHandler::class,
             App\Exception\Handler\AppExceptionHandler::class,
+            Hyperf\Validation\ValidationExceptionHandler::class,
         ],
     ],
 ];

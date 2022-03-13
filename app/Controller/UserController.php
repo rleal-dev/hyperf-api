@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\User;
-use Hyperf\HttpServer\Contract\RequestInterface;
+use App\Request\UserRequest;
+use Hyperf\HttpServer\Contract\ResponseInterface;
 
-class UserController extends AbstractController
+class UserController
 {
-    public function index(RequestInterface $request)
+    public function index(ResponseInterface $response)
     {
-        return User::get();
+        $users = User::get();
+
+        return $response->json($users);
     }
 
     public function show(string $id)
@@ -19,9 +22,9 @@ class UserController extends AbstractController
         return User::find($id);
     }
 
-    public function store(RequestInterface $request)
+    public function store(UserRequest $request)
     {
-        return User::create($request->all());
+        return User::create($request->validated());
     }
 
     public function delete(string $id)
