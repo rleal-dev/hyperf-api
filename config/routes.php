@@ -2,19 +2,16 @@
 
 declare(strict_types=1);
 
-use App\Controller\UserController;
+use App\Controller;
 use Hyperf\HttpServer\Router\Router;
 
-Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
+Router::addGroup('/api/v1/', function () {
+    Router::get('', [Controller\HomeController::class, 'index']);
 
-Router::get('/favicon.ico', function () {
-    return '';
-});
-
-
-Router::addGroup('/users', function () {
-    Router::get('', [UserController::class, 'index']);
-    Router::get('/{id}', [UserController::class, 'show']);
-    Router::post('', [UserController::class, 'store']);
-    Router::delete('/{id}', [UserController::class, 'delete']);
+    Router::addGroup('users', function () {
+        Router::get('', [Controller\UserController::class, 'index']);
+        Router::get('/{id}', [Controller\UserController::class, 'show']);
+        Router::post('', [Controller\UserController::class, 'store']);
+        Router::delete('/{id}', [Controller\UserController::class, 'delete']);
+    });
 });
