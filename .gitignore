@@ -10,4 +10,6 @@ vendor/
 .env
 .DS_Store
 .phpunit*
+.php-cs-fixer.php
+.csfixer.sh
 *.cache

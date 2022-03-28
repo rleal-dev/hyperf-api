@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Requests;
+namespace App\Requests\Auth;
 
 use Hyperf\Validation\Request\FormRequest;
 
-class UserRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
+     *
+     * @return array
      */
     public function authorize(): bool
     {
@@ -18,12 +20,15 @@ class UserRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array
      */
     public function rules(): array
     {
         return [
-            'name' => ['required'],
-            'email' => ['required', 'email', 'unique:users,email'],
+            'name' => ['required', 'max:150'],
+            'email' => ['required', 'email', 'max:150', 'unique:users'],
+            'password' => ['required', 'min:8', 'confirmed'],
         ];
     }
 }

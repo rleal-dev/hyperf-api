@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controllers;
 
 use App\Model\User;
 use App\Request\UserRequest;
+use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 
+#[AutoController(prefix: '/users')]
 class UserController
 {
     public function index(ResponseInterface $response)

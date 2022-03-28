@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Controllers;
+namespace App\Controllers\Auth;
 
 use Hyperf\HttpServer\Annotation\{Controller, RequestMapping};
 
-#[Controller(prefix: '/')]
-class HomeController
+#[Controller('/logout')]
+class LogoutController
 {
-    #[RequestMapping(path: '', methods: 'post')]
+    #[RequestMapping(path: '', methods: 'delete')]
     public function index()
     {
         return [

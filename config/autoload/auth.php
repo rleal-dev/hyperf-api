@@ -6,6 +6,7 @@ declare(strict_types=1);
  *
  * @link     https://github.com/hyperf-ext/auth
  * @contact  eric@zhu.email
+ *
  * @license  https://github.com/hyperf-ext/auth/blob/master/LICENSE
  */
 return [
