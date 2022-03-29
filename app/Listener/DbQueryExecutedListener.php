@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 
-namespace App\Listeners;
+namespace App\Listener;
 
 use Hyperf\Database\Events\QueryExecuted;
 use Hyperf\Event\Annotation\Listener;

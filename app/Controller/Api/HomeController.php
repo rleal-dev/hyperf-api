@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Controllers\Auth;
+namespace App\Controller\Api;
 
 use Hyperf\HttpServer\Annotation\{Controller, RequestMapping};
 
-#[Controller('/login')]
-class LoginController
+#[Controller(prefix: '/')]
+class HomeController
 {
-    #[RequestMapping(path: '', methods: 'post')]
+    #[RequestMapping(path: '', methods: 'get')]
     public function index()
     {
         return [

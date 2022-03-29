@@ -2,16 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Controllers\Auth;
+namespace App\Controller\Api\Auth;
 
-use App\Actions\Auth\Register;
-use App\Requests\Auth\RegisterRequest;
+use App\Action\Auth\Register;
+use App\Controller\Api\Traits\ApiResponseTrait;
+use App\Request\Auth\RegisterRequest;
 use Hyperf\HttpServer\Annotation\{Controller, RequestMapping};
 use Throwable;
 
 #[Controller('/register')]
 class RegisterController
 {
+    use ApiResponseTrait;
+
     #[RequestMapping(path: '', methods: 'post')]
     public function index(RegisterRequest $request, Register $action)
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Model;
 
 use Hyperf\DbConnection\Model\Model as BaseModel;
 use Hyperf\ModelCache\Cacheable;

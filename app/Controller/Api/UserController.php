@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Controllers;
+namespace App\Controller\Api;
 
 use App\Model\User;
 use App\Request\UserRequest;
 use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 
-#[AutoController(prefix: '/users')]
+#[AutoController]
 class UserController
 {
     public function index(ResponseInterface $response)
@@ -27,6 +27,13 @@ class UserController
     public function store(UserRequest $request)
     {
         return User::create($request->validated());
+    }
+
+    public function update(UserRequest $request, int $id)
+    {
+        $user = User::findOrFail($id);
+
+        return $user->update($request->validated());
     }
 
     public function delete(string $id)
