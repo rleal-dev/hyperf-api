@@ -4,40 +4,66 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Model\User;
+use App\Controller\Api\Traits\ApiResponseTrait;
 use App\Request\UserRequest;
-use Hyperf\HttpServer\Annotation\AutoController;
+use App\Service\UserService;
+use Hyperf\HttpServer\Annotation\{
+    Controller, DeleteMapping, GetMapping, PostMapping, PutMapping
+};
 use Hyperf\HttpServer\Contract\ResponseInterface;
 
-#[AutoController]
+#[Controller]
 class UserController
 {
-    public function index(ResponseInterface $response)
-    {
-        $users = User::get();
+    use ApiResponseTrait;
 
-        return $response->json($users);
+    public function __construct(
+        private UserService $userService,
+        // private ResponseInterface $response,
+    ) {
     }
 
-    public function show(string $id)
+    #[GetMapping(path: '')]
+    public function index()
     {
-        return User::find($id);
+        $users = $this->userService->findAll();
+
+        return $this->responseOk('User List Ok', $users);
+
+        // return $this->response->json($users);
     }
 
+    #[GetMapping(path: '{id}')]
+    public function show(int $id)
+    {
+        $user = $this->userService->findOne($id);
+
+        return $this->response->json($user);
+    }
+
+    #[PostMapping(path: '')]
     public function store(UserRequest $request)
     {
-        return User::create($request->validated());
+        $user = $this->userService->store($request->validated());
+
+        return $this->response->json($user);
     }
 
+    #[PutMapping(path: '{id}')]
     public function update(UserRequest $request, int $id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->userService->update($id, $request->validated());
 
-        return $user->update($request->validated());
+        return $this->response->json($user);
     }
 
-    public function delete(string $id)
+    #[DeleteMapping(path: '{id}')]
+    public function delete(int $id)
     {
-        return User::destroy($id);
+        $this->userService->delete($id);
+
+        return $this->response->json([
+            'message' => 'user deleted successfully!',
+        ]);
     }
 }

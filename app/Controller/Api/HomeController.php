@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use Hyperf\HttpServer\Annotation\{Controller, RequestMapping};
+use Hyperf\HttpServer\Annotation\{Controller, GetMapping};
+use Hyperf\HttpServer\Contract\ResponseInterface;
 
-#[Controller(prefix: '/')]
+#[Controller(prefix: 'api')]
 class HomeController
 {
-    #[RequestMapping(path: '', methods: 'get')]
-    public function index()
+    #[GetMapping(path: '')]
+    public function index(ResponseInterface $response)
     {
-        return [
+        return $response->json([
             'message' => 'Hyperf Api',
-        ];
+        ]);
     }
 }
