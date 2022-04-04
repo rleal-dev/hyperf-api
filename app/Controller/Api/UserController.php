@@ -4,22 +4,18 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Controller\Api\Traits\ApiResponseTrait;
+use App\Controller\AbstractController;
 use App\Request\UserRequest;
 use App\Service\UserService;
 use Hyperf\HttpServer\Annotation\{
     Controller, DeleteMapping, GetMapping, PostMapping, PutMapping
 };
-use Hyperf\HttpServer\Contract\ResponseInterface;
 
 #[Controller]
-class UserController
+class UserController extends AbstractController
 {
-    use ApiResponseTrait;
-
     public function __construct(
         private UserService $userService,
-        // private ResponseInterface $response,
     ) {
     }
 
@@ -28,9 +24,7 @@ class UserController
     {
         $users = $this->userService->findAll();
 
-        return $this->responseOk('User List Ok', $users);
-
-        // return $this->response->json($users);
+        return $this->success('User List Ok', $users);
     }
 
     #[GetMapping(path: '{id}')]
@@ -38,7 +32,7 @@ class UserController
     {
         $user = $this->userService->findOne($id);
 
-        return $this->response->json($user);
+        // return $this->response->json($user);
     }
 
     #[PostMapping(path: '')]
@@ -46,7 +40,7 @@ class UserController
     {
         $user = $this->userService->store($request->validated());
 
-        return $this->response->json($user);
+        // return $this->response->json($user);
     }
 
     #[PutMapping(path: '{id}')]
@@ -54,7 +48,7 @@ class UserController
     {
         $user = $this->userService->update($id, $request->validated());
 
-        return $this->response->json($user);
+        // return $this->response->json($user);
     }
 
     #[DeleteMapping(path: '{id}')]
@@ -62,8 +56,8 @@ class UserController
     {
         $this->userService->delete($id);
 
-        return $this->response->json([
-            'message' => 'user deleted successfully!',
-        ]);
+        // return $this->response->json([
+        //     'message' => 'user deleted successfully!',
+        // ]);
     }
 }
